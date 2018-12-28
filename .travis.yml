@@ -1,0 +1,20 @@
+language: node_js
+node_js:
+- node
+cache:
+- npm
+services:
+- docker
+script:
+- export IMAGE_TAG=$DOCKER_USERNAME/cop-watch-api-gateway:`node -p "require('./package.json').version"`
+- npm run e2e
+- npm run test
+- npm run lint
+- docker build -t $IMAGE_TAG .
+before_deploy:
+- docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
+deploy:
+  provider: script
+  script: docker push $IMAGE_TAG
+  on:
+    branch: master

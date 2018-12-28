@@ -1,0 +1,32 @@
+{
+  "name": "cop-watch-api-gateway",
+  "version": "0.1.0",
+  "description": "Gateway that converts http graphql requests to socket-based graphql requests",
+  "main": "index.js",
+  "scripts": {
+    "e2e": "REQUEST_BOUND_PORT=9090 cucumber-js --exit",
+    "test": "jest",
+    "lint": "eslint ./"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ricool06/cop-watch-api-gateway.git"
+  },
+  "author": "Ricool06",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/Ricool06/cop-watch-api-gateway/issues"
+  },
+  "homepage": "https://github.com/Ricool06/cop-watch-api-gateway#readme",
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.2.0",
+    "cucumber": "^5.0.3",
+    "eslint": "^5.11.1",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0"
+  },
+  "dependencies": {
+    "axon": "^2.0.3"
+  }
+}
