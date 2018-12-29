@@ -10,7 +10,7 @@ const { expect } = chai;
 
 Given('another service that will return good data is connected to the bound port of this API', function () {
   this.mockService = axon.socket('rep');
-  this.mockService.connect(this.requestBoundPort);
+  this.mockService.connect(this.requestSocketPort);
   this.mockService.on('data', (message, reply) => {
     this.receivedRequest = message;
     reply();
@@ -19,7 +19,7 @@ Given('another service that will return good data is connected to the bound port
 
 When('I make a good request to this API', function (done) {
   this.requester
-    .post('/graphql')
+    .post(this.httpEndpoint)
     .send(this.goodRequest)
     .end((err, res) => {
       this.responseAndError = { err, res };
