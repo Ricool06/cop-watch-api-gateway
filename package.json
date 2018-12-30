@@ -4,8 +4,10 @@
   "description": "Gateway that converts http graphql requests to socket-based graphql requests",
   "main": "index.js",
   "scripts": {
-    "e2e": "cucumber-js --exit",
-    "test": "jest",
+    "e2e:ci": "cucumber-js --exit",
+    "e2e": "cucumber-js",
+    "test:ci": "jest",
+    "test": "jest --watch",
     "lint": "eslint ./"
   },
   "jest": {

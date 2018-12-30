@@ -7,8 +7,8 @@ services:
 - docker
 script:
 - export IMAGE_TAG=$DOCKER_USERNAME/cop-watch-api-gateway:`node -p "require('./package.json').version"`
-- npm run e2e
-- npm run test
+- npm run e2e:ci
+- npm run test:ci
 - npm run lint
 - docker build -t $IMAGE_TAG .
 before_deploy:
