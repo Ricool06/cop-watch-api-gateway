@@ -11,6 +11,7 @@ class Application {
     const app = express();
 
     app.use(endpoint, this.router);
+    // eslint-disable-next-line no-console
     app.listen(port, () => console.log('Server starting on %d', port));
 
     return app;

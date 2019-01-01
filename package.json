@@ -36,6 +36,7 @@
   "dependencies": {
     "axon": "^2.0.3",
     "express": "^4.16.4",
+    "express-request-id": "^1.4.1",
     "inversify": "^5.0.1",
     "reflect-metadata": "^0.1.12"
   }

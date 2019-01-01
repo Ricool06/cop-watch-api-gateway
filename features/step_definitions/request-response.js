@@ -1,26 +1,31 @@
 const {
   Given, When, Then,
 } = require('cucumber');
-const axon = require('axon');
+const { socket } = require('axon');
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 
 chai.use(chaiHttp);
 const { expect } = chai;
 
-Given('another service that will return good data is connected to the bound port of this API', function () {
-  this.mockService = axon.socket('rep');
-  this.mockService.connect(this.requestSocketPort);
-  this.mockService.on('data', (message, reply) => {
-    this.receivedRequest = message;
-    reply();
+Given('another service that is listening for {string} events is connected to the gateway', async function (expectedEventType) {
+  this.mockService = socket('sub');
+  this.mockService.subscribe(`*:${expectedEventType}`);
+  this.mockService.on('message', (eventType, eventData) => {
+    expect(eventType).toBe(expectedEventType);
+    this.receivedRequest = eventData;
+  });
+  await new Promise((resolve) => {
+    this.mockService.on('connect', resolve);
+    this.mockService.connect(this.requestSocketPort);
   });
 });
 
-When('I make a good request to this API', function (done) {
+When('I make a {string} request to this API', function (eventType, done) {
+  this.goodRequest.event = eventType;
   this.requester
-    .post(this.httpEndpoint)
-    .send(this.goodRequest)
+    .get(this.httpEndpoint)
+    .query(this.goodRequest.query)
     .end((err, res) => {
       this.responseAndError = { err, res };
       done();

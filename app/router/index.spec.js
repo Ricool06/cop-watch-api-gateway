@@ -17,20 +17,20 @@ describe('router', () => {
   beforeAll(() => {
     container = new Container();
 
-    const mockMiddleware1 = { utilize: jest.fn() };
-    const mockMiddleware2 = { utilize: jest.fn() };
+    const mockMiddleware1 = {};
+    const mockMiddleware2 = {};
     container.bind(TYPES.Middleware).toConstantValue(mockMiddleware1);
     container.bind(TYPES.Middleware).toConstantValue(mockMiddleware2);
   });
 
-  test('should use all middlewares', () => {
+  test('should use all GET middlewares', () => {
     container.bind(TYPES.Router).toDynamicValue(routerMaker);
     router = container.get(TYPES.Router);
 
     expect(router).toBe(mockRouter);
 
     const mockMiddlewares = container.getAll(TYPES.Middleware)
-      .map(middleware => middleware.utilize);
-    expect(router.use).toHaveBeenCalledWith(mockMiddlewares);
+      .map(middleware => middleware.get);
+    expect(router.get).toHaveBeenCalledWith(mockMiddlewares);
   });
 });

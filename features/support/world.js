@@ -11,9 +11,12 @@ function World() {
   this.requestSocketPort = config.app.requestSocketPort;
   this.httpEndpoint = config.app.httpEndpoint;
   this.goodRequest = {
-    query: `{
-      goodData
-    }`,
+    query: {
+      query: `{
+        goodData
+      }`,
+      event: null,
+    },
   };
   this.goodResponse = {
     status: 200,
