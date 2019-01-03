@@ -6,7 +6,7 @@ cache:
 services:
 - docker
 script:
-- export IMAGE_TAG=$DOCKER_USERNAME/cop-watch-api-gateway:`node -p "require('./package.json').version"`
+- export IMAGE_TAG=$DOCKER_USERNAME/`node -p "require('./package.json').name"`:`node -p "require('./package.json').version"`
 - npm run e2e:ci
 - npm run test:ci
 - npm run lint
