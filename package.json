@@ -1,6 +1,6 @@
 {
   "name": "cop-watch-api-gateway",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Gateway that converts http graphql requests to socket-based graphql requests",
   "main": "index.js",
   "scripts": {
