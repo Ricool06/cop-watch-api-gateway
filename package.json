@@ -4,6 +4,7 @@
   "description": "Gateway that converts http graphql requests to socket-based graphql requests",
   "main": "index.js",
   "scripts": {
+    "start": "node server.js",
     "e2e:ci": "cucumber-js --exit",
     "e2e": "cucumber-js",
     "test:ci": "jest",
@@ -27,6 +28,7 @@
   "devDependencies": {
     "chai": "^4.2.0",
     "chai-http": "^4.2.0",
+    "chai-uuid": "^1.0.6",
     "cucumber": "^5.0.3",
     "eslint": "^5.11.1",
     "eslint-config-airbnb-base": "^13.1.0",
@@ -35,9 +37,10 @@
   },
   "dependencies": {
     "axon": "^2.0.3",
+    "body-parser": "^1.18.3",
     "express": "^4.16.4",
-    "express-request-id": "^1.4.1",
     "inversify": "^5.0.1",
-    "reflect-metadata": "^0.1.12"
+    "reflect-metadata": "^0.1.12",
+    "uuid": "^3.3.2"
   }
 }

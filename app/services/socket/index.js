@@ -1,3 +1,4 @@
+const uuid = require('uuid');
 const { socket } = require('axon');
 const { publishSocketPort, subscribeSocketPort } = require('../../../config').app;
 
@@ -6,19 +7,20 @@ const subscribeSocket = socket('sub');
 publishSocket.bind(publishSocketPort);
 subscribeSocket.bind(subscribeSocketPort);
 
-function get(req) {
+function request(eventType, data) {
   return new Promise((resolve) => {
-    const outgoingTopic = `${req.id}:${req.query.event}`;
-    const subscribedTopic = `${req.id}:final-response`;
+    const requestId = uuid.v4();
+    const outgoingTopic = `${requestId}:${eventType}`;
+    const subscribedTopic = `${requestId}:final-response`;
 
     subscribeSocket.subscribe(subscribedTopic);
     subscribeSocket.on('message', (topic, response) => resolve(response));
-    publishSocket.send(outgoingTopic, req);
+    publishSocket.send(outgoingTopic, data);
   });
 }
 
 const socketService = {
-  get,
+  request,
 };
 
 module.exports = socketService;

@@ -1,7 +1,8 @@
 const TYPES = {
   Application: Symbol.for('Application'),
   Router: Symbol.for('Router'),
-  Middleware: Symbol.for('Middlewares'),
+  Middleware: Symbol.for('Middleware'),
+  Route: Symbol.for('Route'),
   SocketService: Symbol.for('SocketService'),
 };
 

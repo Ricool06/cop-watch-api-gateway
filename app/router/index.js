@@ -4,10 +4,12 @@ const TYPES = require('../types');
 
 const routerMaker = (context) => {
   const router = Router();
-  const middlewares = context.container
-    .getAll(TYPES.Middleware)
-    .map(middleware => middleware.get);
-  router.get(middlewares);
+
+  const middlewares = context.container.getAll(TYPES.Middleware);
+  router.use('/', middlewares);
+
+  const routes = context.container.getAll(TYPES.Route);
+  router.all('/', routes);
   return router;
 };
 
