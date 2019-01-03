@@ -19,8 +19,20 @@ function request(eventType, data) {
   });
 }
 
+async function closeSockets() {
+  await new Promise((resolve) => {
+    publishSocket.once('close', () => resolve());
+    publishSocket.close();
+  });
+  await new Promise((resolve) => {
+    subscribeSocket.once('close', () => resolve());
+    subscribeSocket.close();
+  });
+}
+
 const socketService = {
   request,
+  closeSockets,
 };
 
 module.exports = socketService;

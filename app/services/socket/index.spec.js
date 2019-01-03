@@ -56,8 +56,6 @@ describe('SocketService', () => {
 
     const response = await socketService.request(mockEventType, mockRequest);
 
-    mockApiPublisher.close();
-    mockApiSubscriber.close();
     expect(response).toEqual(mockResponse);
   });
 
@@ -70,5 +68,6 @@ describe('SocketService', () => {
       mockApiSubscriber.once('close', () => resolve());
       mockApiSubscriber.close();
     });
+    await socketService.closeSockets();
   });
 });
