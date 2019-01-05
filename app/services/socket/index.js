@@ -10,7 +10,7 @@ subscribeSocket.bind(subscribeSocketPort);
 function request(eventType, data) {
   return new Promise((resolve) => {
     const requestId = uuid.v4();
-    const outgoingTopic = `${requestId}:${eventType}`;
+    const outgoingTopic = `${requestId}:${data.method}:${eventType}`;
     const subscribedTopic = `${requestId}:final-response`;
 
     subscribeSocket.subscribe(subscribedTopic);

@@ -18,6 +18,7 @@ describe('SocketService', () => {
   test('should have a request method that uses sockets to send requests,'
 + 'responding when it receives an event matching {requestid}:final-response', async () => {
     const mockEventType = 'someEventType';
+    const expectedTopic = 'GET:someEventType';
     const mockRequestId = 'fake-uuid';
     jest.spyOn(uuid, 'v4').mockReturnValue(mockRequestId);
     const mockRequest = {
@@ -39,11 +40,10 @@ describe('SocketService', () => {
     });
     await new Promise((resolve) => {
       mockApiSubscriber.once('message', (topic, req) => {
-        const splitTopic = topic.split(':');
-        const requestId = splitTopic[0];
-        const eventType = splitTopic[1];
+        const [requestId, ...splitEventType] = topic.split(':');
+        const eventType = splitEventType.join(':');
 
-        expect(eventType).toBe(mockEventType);
+        expect(eventType).toBe(expectedTopic);
         expect(req).toMatchObject(mockRequest);
         expect(requestId).toBe(mockRequestId);
 
