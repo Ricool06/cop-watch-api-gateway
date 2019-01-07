@@ -8,9 +8,10 @@ const mockExpressApp = {
   listen: jest.fn(),
   use: jest.fn(),
 };
-jest.mock('express', () => jest.fn(
-  () => mockExpressApp,
-));
+jest.mock('express', () => jest.fn(() => mockExpressApp));
+
+const mockCors = { cors: 'yes please' };
+jest.mock('cors', () => jest.fn(() => mockCors));
 
 describe('Application', () => {
   let container;
@@ -40,7 +41,8 @@ describe('Application', () => {
     const actualExpressApp = application.start(testPort, testEndpoint);
 
     expect(actualExpressApp).toBe(mockExpressApp);
-    expect(actualExpressApp.use).toHaveBeenCalledWith(testEndpoint, mockRouter);
+    expect(actualExpressApp.use).toHaveBeenNthCalledWith(1, mockCors);
+    expect(actualExpressApp.use).toHaveBeenNthCalledWith(2, testEndpoint, mockRouter);
     expect(actualExpressApp.listen).toHaveBeenCalledWith(testPort, expect.any(Function));
   });
 });
